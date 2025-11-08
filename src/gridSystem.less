@@ -5,20 +5,33 @@
     @ancho : (100% / @columnas * @iteracion);
     @{selectorColumna} {
         flex-basis: @ancho;
+        max-width: @ancho;
         padding: 0.5rem;
+        box-sizing: border-box;
     }
     .generarGrilla(@prefijo, @columnas, (@iteracion+1));
 }
 
 .grid {
+    width: 100%;
+    
     .row {
         .flex();
         .flex-wrap();
         margin: 0 -0.5rem;
+        width: 100%;
         
         [class*='col-'] {
             flex: 0 0 auto;
         }
         .generarGrilla('', 12);
+        
+        @media (min-width: 768px) {
+            .generarGrilla(~'md-', 12);
+        }
+        
+        @media (min-width: 1025px) {
+            .generarGrilla(~'lg-', 12);
+        }
     }
 }
