@@ -1,0 +1,24 @@
+.generarGrilla( @prefijo, @columnas, @iteracion : 1)
+    when (@iteracion =< @columnas)
+{
+    @selectorColumna : ~'.col-@{prefijo}@{iteracion}';
+    @ancho : (100% / @columnas * @iteracion);
+    @{selectorColumna} {
+        flex-basis: @ancho;
+        padding: 0.5rem;
+    }
+    .generarGrilla(@prefijo, @columnas, (@iteracion+1));
+}
+
+.grid {
+    .row {
+        .flex();
+        .flex-wrap();
+        margin: 0 -0.5rem;
+        
+        [class*='col-'] {
+            flex: 0 0 auto;
+        }
+        .generarGrilla('', 12);
+    }
+}

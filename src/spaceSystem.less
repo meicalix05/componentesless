@@ -1,0 +1,90 @@
+/* Padding */
+/* Margins */
+/* Border */
+/* Width  */
+
+
+@space-keys: 1 2 3 4 5 6 7 8 10 12 16 20 80;
+@space-vals: 0.25 0.5 0.75 1 1.25 1.5 1.75 2 2.5 3 4 5 20;
+
+.generarUtilitario(@prefijo, @regla, @reglas...) {
+    .-aplicarPropiedades(@rem, @count) when (@count > 0) {
+        @prop: extract(@reglas, @count);
+        @{prop}: unit(@rem, rem);
+        .-aplicarPropiedades(@rem, @count - 1);
+    }
+    .-aplicarPropiedades(@rem, 0) {}
+
+    .-iterarPor(@i) when (@i =< length(@space-keys)) {
+        @key: extract(@space-keys, @i);
+        @val: extract(@space-vals, @i);
+
+        .@{prefijo}@{regla}-@{key} {
+            .-aplicarPropiedades(@val, length(@reglas));
+        }
+        .-iterarPor(@i + 1);
+    }
+    .-iterarPor(@i) when (@i > length(@space-keys)) {}
+
+    .-iterarPor(1);
+}
+
+
+.generarUtilitario(~'', m, margin);
+.generarUtilitario(~'', mt, margin-top);
+.generarUtilitario(~'', mb, margin-bottom);
+.generarUtilitario(~'', ml, margin-left);
+.generarUtilitario(~'', mr, margin-right);
+.generarUtilitario(~'', mx, margin-left, margin-right);
+.generarUtilitario(~'', my, margin-top, margin-bottom);
+
+
+.generarUtilitario(~'', p, padding);
+.generarUtilitario(~'', pt, padding-top);
+.generarUtilitario(~'', pb, padding-bottom);
+.generarUtilitario(~'', pl, padding-left);
+.generarUtilitario(~'', pr, padding-right);
+.generarUtilitario(~'', px, padding-left, padding-right);
+.generarUtilitario(~'', py, padding-top, padding-bottom);
+
+
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 0.75rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 0.75rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 0.75rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 0.75rem !important; }
+
+
+.m-auto { margin: auto !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+
+.flex-center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.justify-center {
+    justify-content: center !important;
+}
+
+.items-center {
+    align-items: center !important;
+}
